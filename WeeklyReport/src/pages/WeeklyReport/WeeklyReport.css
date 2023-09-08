@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+.p{
+    color: #000;
+font-family: Poppins;
+font-size: 23.054px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+
+   
+
+
+}
+.p2{
+    color: #089BD9;
+font-family: Poppins;
+font-size: 17.89px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+
+justify-content: center;
+}
+span{
+color: #000;
+text-align: center;
+font-family: Poppins;
+font-size: 17.89px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.logoImg1{
+
+ 
+ margin-right: 34%;
+}
+
+
+.bounds {
+    background-color: #d6ebff;
+    border: 1px solid;
+    border-color: #eff0f6;
+    border-radius: 8px;
+    height: 130px;
+    width: 494px;
+  }
+  .p3{
+    color: #096288;
+font-feature-settings: 'clig' off, 'liga' off;
+font-family: Poppins;
+font-size: 30px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+letter-spacing: -0.154px;
+margin-left: 30px;
+
+
+  }
+  
+  .p4{
+    color: var(--base-shade-100, #000);
+/* Headline */
+font-family: Inter;
+font-size: 34px;
+font-style: normal;
+font-weight: 1000;
+line-height: normal;
+
+margin-top: 80px;
+margin-left: 30px;
+  }
+
+  .frame {
+    align-items: center;
+    background-color: #d6ebff;
+    display: flex;
+    gap: 10px;
+    height: 33px;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+  }
+  .textwrapper {
+    color: #000000;
+    font-family: "Poppins-Medium", Helvetica;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-bottom: -3px;
+    margin-top: -5px;
+    position: relative;
+    width: fit-content;
+  }
+
+
+
+ 
+
+  .title {
+    color: #096288;
+    font-family: "Poppins-SemiBold", Helvetica;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    line-height: normal;
+    width: fit-content;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50%;
+    margin-top: 2px;
+    margin-bottom: 20px;
+    
+  }
+  .title2{
+    color: #096288;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.154px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40%;
+    margin-top: 2px;
+    margin-bottom: 10px;
+  }
+  .B1{
+    border-radius: 8px;
+background: #FFF;
+box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  }
