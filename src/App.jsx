@@ -2,21 +2,23 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter, Route  , Routes } from 'react-router-dom';
+import WeeklyReport from './pages/weeklyReport/weeklyReport';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import WeeklyReport from './pages/WeeklyReport/WeeklyReport';
-import { BrowserRouter, Route , Link , Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <div className="App">
+      <div className="App">
       <BrowserRouter>
       <Routes>
       <Route path = {"/"} element = {<WeeklyReport/>} />
+      
         </Routes>
-        </BrowserRouter>
-       
+      </BrowserRouter>
       </div>
       
     </>
