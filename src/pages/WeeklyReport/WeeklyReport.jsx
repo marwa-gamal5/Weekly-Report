@@ -10,16 +10,107 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { axiosInstance } from '../../network/axiosinstance';
-
+import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 
 
 function WeeklyReport() {
     const [titles, setTitles] = useState([]);
     const [CourseRegistrations, setCourseRegistrations] = useState([]);
+     // Create state variables for start date and end date
+     const [startDate, setStartDate] = useState(''); // Initialize with empty string
+     const [endDate, setEndDate] = useState(''); // Initialize with empty string
+    // Define a state variable to store the sum of CourseRegistration[2]
+      const [sumOfCourseRegistrations, setSumOfCourseRegistrations] = useState(0);
+    // Define a state variable to store the sum of title[1]
+    const [sumOfTitleNumbers, setSumOfTitleNumbers] = useState(0);
+   // Define a state variable to store the sum of CourseRegistration[1]
+            const [sumOfCourseRegistrations1, setSumOfCourseRegistrations1] = useState(0);
+
+    // Event handler to update the start date state
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    };
+
+    // Event handler to update the end date state
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    };
+
+    // Event handler for the submit button
+    const handleSubmit = () => {
+        // Update the Axios request with user-inputted start and end dates
+        axiosInstance.post('/user/report/', {
+            "start_date": startDate, // Use the user-inputted start date
+            "end_date": endDate,     // Use the user-inputted end date
+            "token": "03e78a4ce3fc2c15d99f831fec7b2dfd3a4a986f"
+        }, {
+            headers: {
+                "Authorization": `Token 03e78a4ce3fc2c15d99f831fec7b2dfd3a4a986f`,
+                "Content-Type": "application/json"
+            },
+        })
+            .then((res) => {
+                console.log(res)
+                setTitles(res.data.contient);
+                setCourseRegistrations(res.data.course_state);
+                // ... (rest of your code)
+                if ('error' in res.data) {
+                    fetchData();
+                    Swal.fire({
+                        title: 'Faild',
+                        text: 'There is no data available now for this date. Try entering another date',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          // If the user confirms, refresh the page
+                          window.location.reload();
+                        }
+                      });
+               
+                    console.log("There is no data available now for this date. Try entering another date")
+
+                   
+                }
+
+                console.log(res);
+            setTitles(res.data.contient);
+            setCourseRegistrations(res.data.course_state);
     
-
-
+            // Calculate the sum of CourseRegistrations[2]
+            const sum = res.data.course_state.reduce((acc, current) => {
+                return acc + current[2];
+            }, 0);
+    
+            // Set the sum in the state variable
+            setSumOfCourseRegistrations(sum);
+    
+            // Calculate the sum of title[1]
+            const sum2 = res.data.contient.reduce((acc, current) => {
+                return acc + current[1];
+            }, 0);
+    
+            // Set the sum in the state variable
+            setSumOfTitleNumbers(sum2);
+      
+    
+    
+            // Calculate the sum of CourseRegistrations[1]
+            const sum3 = res.data.course_state.reduce((acc, current) => {
+                return acc + current[1];
+            }, 0);
+    
+            // Set the sum in the state variable
+            setSumOfCourseRegistrations1(sum3);
+            })
+            .catch((err) => {
+                console.log("Error while fetching data:", err);
+            });
+    };
 
     const generatePDF = () => {
         const report = new JsPDF('landscape', 'pt', 'a2');
@@ -27,82 +118,36 @@ function WeeklyReport() {
             report.save('report.pdf');
         });
     };
-     // Define a state variable to store the sum of CourseRegistration[2]
-     const [sumOfCourseRegistrations, setSumOfCourseRegistrations] = useState(0);
-     // Define a state variable to store the sum of title[1]
-     const [sumOfTitleNumbers, setSumOfTitleNumbers] = useState(0);
-     // Define a state variable to store the sum of CourseRegistration[1]
-     const [sumOfCourseRegistrations1, setSumOfCourseRegistrations1] = useState(0);
- 
-    useEffect(() => {
-        fetchData();
 
-    }, []);
+ 
+    // useEffect(() => {
+    //     fetchData();
+
+    // }, []);
 
     const fetchData = () => {
-
-
-
-        axiosInstance.post('/user/report/', { "start_date": "2022-08-27", "end_date": "2023-09-30", "token": "03e78a4ce3fc2c15d99f831fec7b2dfd3a4a986f" }, {
+        axiosInstance.post('/user/report/', {
+            "start_date": startDate,
+            "end_date": endDate,
+            "token": "03e78a4ce3fc2c15d99f831fec7b2dfd3a4a986f"
+        }, {
             headers: {
                 "Authorization": `Token 03e78a4ce3fc2c15d99f831fec7b2dfd3a4a986f`,
                 "Content-Type": "application/json"
-
             },
         })
-            .then((res) => {
-                console.log(res)
-                setTitles(res.data.contient);
-                setCourseRegistrations(res.data.course_state);
-              // Calculate the sum of CourseRegistration[2]
-              const sum = CourseRegistrations.reduce((acc, current) => {
-                return acc + current[2];
-            }, 0);
-
-            // Set the sum in the state variable
-            setSumOfCourseRegistrations(sum);
-
-            // Calculate the sum of title[1]
-            const sum2 = titles.reduce((acc, current) => {
-                return acc + current[1];
-            }, 0);
-
-            // Set the sum in the state variable
-            setSumOfTitleNumbers(sum2);
-
-            // Calculate the sum of CourseRegistration[1]
-            const sum3 = CourseRegistrations.reduce((acc, current) => {
-                return acc + current[1];
-            }, 0);
-
-            // Set the sum in the state variable
-            setSumOfCourseRegistrations1(sum3);
-
-            })
-            .catch((err) => {
-                console.log("Error while fetching data:", err);
-            })
+        .then((res) => {
+            console.log(res);
+      
+        })
+        .catch((err) => {
+            console.log("Error while fetching data:", err);
+        });
     };
-
-// // Calculate the sum of CourseRegistration[2]
-// const sumOfCourseRegistrations = CourseRegistrations.reduce((acc, current) => {
-//     return acc + current[2];
-// }, 0);
-
-// // Calculate the sum of title[1]
-// const sumOfTitleNumbers = titles.reduce((acc, current) => {
-//     return acc + current[1];
-// }, 0);
-
-
-
-
-
-
 
     return (<>
         <div>
-        
+        <button onClick={handleSubmit}>Submit</button>
             <div id="report"  >
                 <div id="sectionone">
                     <div className='row  m-5'>
@@ -112,7 +157,15 @@ function WeeklyReport() {
 
                         <div className="p col-8 ">
                             <p className="p1 d-flex align-items-center justify-content-center">Weekly Report</p>
-                            <p className="p2 d-flex align-items-center justify-content-center"><span>From</span> 31 / 8/ 2023 <span>To</span>  6/9/2023  </p>
+                            <p className="p2 d-flex align-items-center justify-content-center"><span>From </span>  <input
+                    type="date"
+                    value={startDate}
+                    onChange={handleStartDateChange}
+                /><span>To </span>  <input
+                type="date"
+                value={endDate}
+                onChange={handleEndDateChange}
+            /> </p>
                         </div>
 
 
@@ -230,12 +283,6 @@ function WeeklyReport() {
                                                         </tr>
                                                     ))}
                                                 
-                                                   
-
-                                            
-
-
-
                                             </tbody>
                                         </Table>
                                     </div>
