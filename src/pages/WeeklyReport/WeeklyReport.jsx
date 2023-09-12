@@ -12,7 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { axiosInstance } from '../../network/axiosinstance';
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
-
+import { usePDF } from 'react-to-pdf';
+import generatePDF, { Resolution, Margin } from 'react-to-pdf';
+// import { useRef } from 'react';
 
 function WeeklyReport() {
     const [titles, setTitles] = useState([]);
@@ -25,7 +27,9 @@ function WeeklyReport() {
     // Define a state variable to store the sum of title[1]
     const [sumOfTitleNumbers, setSumOfTitleNumbers] = useState(0);
    // Define a state variable to store the sum of CourseRegistration[1]
-            const [sumOfCourseRegistrations1, setSumOfCourseRegistrations1] = useState(0);
+    const [sumOfCourseRegistrations1, setSumOfCourseRegistrations1] = useState(0);
+
+    const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
 
     // Event handler to update the start date state
     const handleStartDateChange = (e) => {
@@ -112,19 +116,17 @@ function WeeklyReport() {
             });
     };
 
-    const generatePDF = () => {
-        const report = new JsPDF('landscape', 'pt', 'a2');
-        report.html(document.querySelector('#report')).then(() => {
-            report.save('report.pdf');
-        });
-    };
+    // const generatePDF = () => {
+    //     const report = new JsPDF('landscape', 'pt', 'a2');
+    //     report.html(document.querySelector('#report')).then(() => {
+    //         report.save('report.pdf');
+    //     });
+    // };
 
- 
     // useEffect(() => {
     //     fetchData();
 
     // }, []);
-
     const fetchData = () => {
         axiosInstance.post('/user/report/', {
             "start_date": startDate,
@@ -145,12 +147,41 @@ function WeeklyReport() {
         });
     };
 
+
+
+    const options = {
+        // default is `save`
+        method: 'open',
+       
+        resolution: Resolution.HIGH,
+        page: {
+           // margin is in MM, default is Margin.NONE = 0
+           margin: Margin.SMALL,
+           // default is 'A4'
+           format: 'B4',
+           // default is 'portrait'
+           orientation: 'landscape',
+        },
+       
+       
+       
+     };
+     
+     // you can use a function to return the target element besides using React refs
+     const getTargetElement = () => document.getElementById('content-id');
+
     return (<>
         <div>
         <button onClick={handleSubmit}>Submit</button>
-            <div id="report"  >
+          
+            {/* <button onClick={generatePDF} type="button">
+                Export PDF
+            </button> */}
+              <button onClick={() => generatePDF(getTargetElement, options)}>Generate PDF</button>
+              <div id="content-id">
+             <div id="report"  >
                 <div id="sectionone">
-                    <div className='row  m-5'>
+                    <div className='row  m-5 d-flex  align-items-center '>
                         <div className='col-2'>
                             <img src={logoImg3} alt="Logo3" />
                         </div>
@@ -169,10 +200,11 @@ function WeeklyReport() {
                         </div>
 
 
-                        <div className='col-2  d-flex align-items-center justify-content-end position-relative'>
-                            <img className='logoImg1 position-absolute ' src={logoImg1} alt="Logo1" />
-
-                            <img className='logoImg2' src={logoImg2} alt="Logo2" />
+                        <div className='col-2  d-flex align-items-center justify-content-end '>
+                            <div><img className='logoImg1 p-3 ' src={logoImg1} alt="Logo1" /></div>
+                            
+                          <div> <img className='logoImg2 p-3' src={logoImg2} alt="Logo2" /></div>
+                           
                         </div>
 
 
@@ -227,7 +259,7 @@ function WeeklyReport() {
 
                             <div className='B1  m-3'>
                                 <div className='p-3'>
-                                    <div className="title   "> Visitor By Continent</div>
+                                    <div className="title "> Visitor By Continent</div>
                                     <div className=" " >
 
                                         <Table hover  >
@@ -332,22 +364,20 @@ function WeeklyReport() {
                     </div>
                 </div>
 
-                <div id="sectionfour">
-                    {/* <div className='row  fixed-bottom '> */}
-                    <div className='row   '>
+                {/* <div id="sectionfour">
+                     <div className='row  fixed-bottom '>
+                     
                         <div className="frame">
                             <div className="textwrapper">http://value-platform.com/progamme</div>
                         </div>
 
-                    </div>
-                </div>
+                    </div> 
+                </div> */}
 
 
 
             </div>
-            <button onClick={generatePDF} type="button">
-                Export PDF
-            </button>
+         </div>
         </div>
 
 
