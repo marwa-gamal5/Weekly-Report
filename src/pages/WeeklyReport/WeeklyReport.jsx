@@ -58,7 +58,7 @@ function WeeklyReport() {
                 console.log(res)
                 setTitles(res.data.contient);
                 setCourseRegistrations(res.data.course_state);
-                // ... (rest of your code)
+          
                 if ('error' in res.data) {
                     fetchData();
                     Swal.fire({
@@ -374,13 +374,14 @@ doc.autoTable({
               <div id="content-id">
              <div id="report"  >
                 <div id="sectionone">
-                    <div className='row  m-5 d-flex   align-items-center justify-content-center '>
-                        <div className='col-2  '>
+                    <div className='  row  m-5 d-flex   align-items-center justify-content-center '>
+                        <div className=' col-12 col-sm-2 mx-auto text-center '>
+                        {/* <div className='col-2  '> */}
                             <img  className='logoImg3'src={logoImg3} alt="Logo3" />
                         </div>
 
-                        <div className="p col-8 ">
-                            <p className="p1 d-flex align-items-center justify-content-center">Weekly Report</p>
+                        <div className="  p col-12 col-sm-8 p-2 text-center">
+                            <p className="p1 d-flex align-items-center justify-content-center">Activity Report</p>
                             <p className="p2 d-flex align-items-center justify-content-center"><span>From </span>  <input
                     type="date"
                     value={startDate}
@@ -391,9 +392,10 @@ doc.autoTable({
                 onChange={handleEndDateChange}
             /> </p>
                         </div>
+   
 
-
-                        <div className='col-2  d-flex align-items-center justify-content-end  '>
+                        <div className=' col-12 col-sm-2 d-flex align-items-center justify-content-center   '>
+                        
                             <div><img className='logoImg1 p-3 ' src={logoImg1} alt="Logo1" /></div>
                             
                           <div> <img className='logoImg2 p-3' src={logoImg2} alt="Logo2" /></div>
@@ -450,9 +452,13 @@ doc.autoTable({
                         </div>
                     </div>
                 </div>
+
+
+
                 <div id="sectionthree">
                     <div className='row m-4 '>
-                        <div className=' col-8'>
+                        <div className='col-12 col-md-8'>
+                        {/*<div className='col-12 col-sm-8 '>*/}
 
                             <div className='B1  m-3'>
                                 <div className='p-3'>
@@ -486,11 +492,11 @@ doc.autoTable({
                             </div>
 
                         </div>
-                        <div className=' col-4'>
+                        <div className=' col-12 col-md-4'>
 
                             <div className='B1  m-3  '>
                                 <div className='p-3'>
-                                    <div className="title2   "> Course  Registrations</div>
+                                    <div className="title2"> Course  Registrations</div>
                                     <div className=" " >
                                         <Table hover  >
                                             <thead >
@@ -517,7 +523,6 @@ doc.autoTable({
                                     </div>
                                 </div>
                             </div>
-
 
                             <div className='B1  m-3 '>
                                 <div className='p-3'>
@@ -554,8 +559,6 @@ doc.autoTable({
                                 </div>
 
                             </div>
-
-
 
                         </div>
                     </div>
