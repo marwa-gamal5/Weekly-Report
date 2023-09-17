@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route  , Routes } from 'react-router-dom';
 import WeeklyReport from './pages/weeklyReport/weeklyReport';
+// import Testpage from './pages/Testpage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,8 +16,10 @@ function App() {
       <div className="App">
       <BrowserRouter>
       <Routes>
-      <Route path = {"/"} element = {<WeeklyReport/>} />
-      
+     < Route path = {"/"} element = {<WeeklyReport/>} />
+      <Route path = {"/:token"} element = {<WeeklyReport/>} />
+    
+        
         </Routes>
       </BrowserRouter>
       </div>

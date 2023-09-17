@@ -14,9 +14,14 @@ import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 import { usePDF } from 'react-to-pdf';
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
-// import { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
+// import { useRef } from 'react';
 function WeeklyReport() {
+    const [srrrRrrrrrrrr , setsrrrRrrrrrrrr] = useState('')
+    const {token} = useParams;
+    // const history = useHistory()
+
     const [titles, setTitles] = useState([]);
     const [CourseRegistrations, setCourseRegistrations] = useState([]);
      // Create state variables for start date and end date
@@ -123,10 +128,11 @@ function WeeklyReport() {
     //     });
     // };
 
-    // useEffect(() => {
-    //     fetchData();
-
-    // }, []);
+    useEffect(() => {
+        // Perform the action you want to do once here
+      //  window.location.replace('http://localhost:5173/');
+      }, []);
+    
     const fetchData = () => {
         axiosInstance.post('/user/report/', {
             "start_date": startDate,
@@ -407,9 +413,6 @@ doc.autoTable({
 
                     </div>
                 </div>
-
-
-
 
                 <div id="sectiontwo">
                     <div className='row m-4'>
